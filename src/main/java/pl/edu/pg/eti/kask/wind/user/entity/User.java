@@ -36,4 +36,6 @@ public class User implements Serializable {
     private String email;
 
     private List<Equipment> equipment;
+
+    private byte[] avatar;
 }
