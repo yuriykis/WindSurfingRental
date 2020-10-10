@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Open Liberty documentation does not use schema in examples.-->
+<server description="Jakarta EE example server">
+    <featureManager>
+        <feature>servlet-4.0</feature>
+        <feature>jsonb-1.0</feature>
+        <feature>cdi-2.0</feature>
+    </featureManager>
+</server>
