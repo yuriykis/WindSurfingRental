@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Dependent
-public class UserRepository implements Repository<User, String> {
+public class UserRepository implements Repository<User, Integer> {
     private DataStore store;
 
     @Inject
@@ -18,8 +18,8 @@ public class UserRepository implements Repository<User, String> {
     }
 
     @Override
-    public Optional<User> find(String login) {
-        return store.findUser(login);
+    public Optional<User> find(Integer id) {
+        return store.findUser(id);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class UserRepository implements Repository<User, String> {
 
     @Override
     public void update(User entity) {
-        throw new UnsupportedOperationException("Not implemented.");
+        store.updateUser(entity);
     }
 
 

@@ -10,7 +10,9 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,6 +24,8 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 public class User implements Serializable {
+
+    private Integer userId;
 
     private String login;
 

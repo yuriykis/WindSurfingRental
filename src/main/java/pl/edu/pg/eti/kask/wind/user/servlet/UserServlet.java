@@ -36,9 +36,10 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String login = request.getParameter("login");
-        if (login != null) {
-            Optional<User> user = service.find(login);
+        String userId = request.getParameter("id");
+        if (userId != null) {
+            Integer id = Integer.parseInt(userId);
+            Optional<User> user = service.find(id);
             if (user.isPresent()) {
                 response.getWriter().write(jsonb.toJson(GetUserResponse.entityToDtoMapper().apply(user.get())));
                 return;
