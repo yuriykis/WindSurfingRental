@@ -6,6 +6,8 @@ import pl.edu.pg.eti.kask.wind.user.repository.UserRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,11 +26,32 @@ public class UserService {
         repository.create(user);
     }
 
-    public Optional<User> find(String login) {
-        return repository.find(login);
+    public Optional<User> find(Integer id) {
+        return repository.find(id);
     }
 
     public List<User> findAll() {
         return repository.findAll();
+    }
+
+
+    public void updateAvatar(Integer id, InputStream is) {
+        repository.find(id).ifPresent(user -> {
+            try {
+                user.setAvatar(is.readAllBytes());
+                repository.update(user);
+            } catch (IOException ex) {
+                throw new IllegalStateException(ex);
+            }
+        });
+    }
+
+    public void deleteAvatar(Integer id) {
+        repository.find(id).ifPresent(user -> {
+
+            user.setAvatar(null);
+            repository.update(user);
+
+        });
     }
 }
