@@ -45,7 +45,7 @@ public class DataStore {
                 },
                 () -> {
                     throw new IllegalArgumentException(
-                            String.format("The character with id \"%d\" does not exist", user.getUserId()));
+                            String.format("The user with id \"%d\" does not exist", user.getUserId()));
                 });
     }
 

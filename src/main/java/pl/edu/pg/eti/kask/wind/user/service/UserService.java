@@ -34,6 +34,16 @@ public class UserService {
         return repository.findAll();
     }
 
+    public void setAvatar(Integer id, InputStream is) {
+        repository.find(id).ifPresent(user -> {
+            try {
+                user.setAvatar(is.readAllBytes());
+                repository.update(user);
+            } catch (IOException ex) {
+                throw new IllegalStateException(ex);
+            }
+        });
+    }
 
     public void updateAvatar(Integer id, InputStream is) {
         repository.find(id).ifPresent(user -> {

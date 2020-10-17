@@ -15,6 +15,8 @@ import java.util.function.Function;
 @EqualsAndHashCode
 public class GetUserResponse {
 
+    private Integer userId;
+
     private String login;
 
     private String firstName;
@@ -34,6 +36,7 @@ public class GetUserResponse {
                 .birthDate(user.getBirthDate())
                 .email(user.getEmail())
                 .login(user.getLogin())
+                .userId(user.getUserId())
                 .build();
     }
 }
