@@ -1,24 +1,24 @@
 body {
-    background-color: #96C4D8;
+    background-color: white;
     font-family: Georgia serif;
 }
 
 .container {
-    margin: 50px auto;
-    width: 1000px;
+    width: 100%;
 }
 
 .header {
-    text-align: right;
+    text-align: center;
     background: #548BA1;
     color: #214753;
     font-weight: bold;
+    width: 100%;
 }
 
 .header h1 {
     margin: 0;
-    padding: 10px;
-    font-style: italic;
+    padding: 0px;
+    font-style: normal;
 }
 
 .navigation-bar {
@@ -50,17 +50,20 @@ body {
 }
 
 .main-section {
-    padding: 10px;
-    background-color: #E0EEF7;
+    background-color: white;
+    height: 705px;
 }
 
 .footer {
+    height: 20px;
+    background-color: #E0EEF7;
     font-size: small;
     text-align: center;
 }
 
 .footer p {
-    margin: 0;
+    width: 100%;
+    text-align: center;
 }
 
 .text--justified {
@@ -116,7 +119,7 @@ body {
 
 .data-table thead {
     font-weight: bold;
-    background-color: #548BA1;
+    background-color: #548BA2;
     color: #214753;
 }
 
