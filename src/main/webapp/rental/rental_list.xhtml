@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <ui:define name="content">
+        <h:panelGroup layout="block">
+            <article class="text--justified">
+                <header><h2>Rental Offices</h2></header>
+                <h:dataTable value="#{rentalList.rentals.rentals}" var="rental" styleClass="data-table">
+                    <h:column>
+                        <f:facet name="header">name</f:facet>
+                        <h:outputText value="#{rental.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">view</f:facet>
+                        <h:link outcome="/rental/rental_view.xhtml" value="view">
+                            <f:param name="id" value="#{rental.id}"/>
+                        </h:link>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">delete</f:facet>
+                        <h:form>
+                            <h:commandButton styleClass="ui-button ui-control" value="delete"
+                                             action="#{rentalList.deleteAction(rental)}"/>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </article>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>

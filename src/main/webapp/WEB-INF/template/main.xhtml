@@ -16,16 +16,18 @@
         <h:outputStylesheet library="default" name="css/styles.css"/>
     </h:head>
     <h:body>
-        <div class="container">
+        <div class="container" style="align-items: center;">
             <header class="header">
-                <h1>Windsurf equipment rental</h1>
+                <div style="display: inline-block; height: 20px; width: 1000px; text-align: right;"><h1>Windsurf equipment rental</h1></div>
+                <div style="display: inline-block; width: 470px; text-align: right;">
+                    <h:graphicImage style="width: 50px; height: 50px; margin-top: 10px;" value="#{resource['images:wind.png']}"/>
+                </div>
             </header>
 
             <nav class="navigation-bar">
                 <ul>
-                    <li><h:link outcome="/index.xhtml">main</h:link></li>
-<!--                    <li><h:link outcome="/about/about.xhtml">about</h:link></li>-->
-<!--                    <li><h:link outcome="/character/character_list.xhtml">characters</h:link></li>-->
+                    <li><h:link outcome="/index.xhtml">Main Page</h:link></li>
+                    <li><h:link outcome="/rental/rental_list.xhtml">Rental Offices</h:link></li>
                 </ul>
             </nav>
 
@@ -34,7 +36,7 @@
             </section>
 
             <footer class="footer">
-                <p>Copyright &#169; 2020, Yuriy Kis</p>
+                <p>Copyright &#169; 2020, Yuriy Kis1</p>
             </footer>
         </div>
     </h:body>

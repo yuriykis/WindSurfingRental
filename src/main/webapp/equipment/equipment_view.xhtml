@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{equipmentView.id}" required="true"/>
+        <f:viewAction action="#{equipmentView.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:panelGroup layout="block">
+            <article>
+                <header><h2><h:outputText value="#{equipmentView.equipment.name}"/></h2></header>
+                <div>
+                    <div>
+                        <h3>Nr: </h3><h:outputText value="#{equipmentView.equipment.id}"/>
+                    </div>
+                    <div>
+                        <h3>Description: </h3><h:outputText value="#{equipmentView.equipment.description}"/>
+                    </div>
+                    <div>
+                        <h3>Rent Price: </h3><h:outputText value="#{equipmentView.equipment.rentPrice}"/>
+                    </div>
+                    <div>
+                        <h3>Rental Office: </h3><h:outputText value="#{equipmentView.equipment.rental.name}"/>
+                    </div>
+                    <div>
+                        <h3>Rent by: </h3>
+                        <h:outputText value="#{equipmentView.equipment.user.firstName} "/>
+                        <h:outputText value="#{equipmentView.equipment.user.lastName}"/>
+                    </div>
+                    <div>
+                        <h3>Components: </h3>
+                        <h:outputText value="#{equipmentView.equipment.componentsNames}"/>
+                    </div>
+                    <br/>
+                    <div>
+                        <f:facet name="header">Edit</f:facet>
+                            <h:link styleClass="ui-button ui-control" outcome="/equipment/equipment_edit.xhtml" value="edit">
+                                <f:param name="id" value="#{equipmentView.equipment.id}"/>
+                            </h:link>
+                    </div>
+                </div>
+            </article>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>

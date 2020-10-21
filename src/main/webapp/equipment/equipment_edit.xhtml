@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{equipmentEdit.id}" required="true"/>
+        <f:viewAction action="#{equipmentEdit.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:panelGroup layout="block">
+            <article class="text--justified">
+                <header><h2>Edit equipment info</h2></header>
+                <h:form>
+                    <h:outputLabel for="name" value="Name:"/><br/>
+                    <h:inputText class="ui-control ui-input" id="name" value="#{equipmentEdit.equipment.name}"/><br/><br/>
+                    <h:outputLabel for="description" value="Description:"/><br/>
+                    <h:inputText class="ui-control ui-input" id="description" value="#{equipmentEdit.equipment.description}"/><br/><br/>
+                    <h:outputLabel for="rentPrice" value="Rent Price:"/><br/>
+                    <h:inputTextarea class="ui-control" id="rentPrice" value="#{equipmentEdit.equipment.rentPrice}"/><br/><br/>
+                    <h:commandButton class="ui-control ui-button" value="Update"
+                                     action="#{equipmentEdit.saveAction()}"/><br/><br/>
+                </h:form>
+            </article>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>

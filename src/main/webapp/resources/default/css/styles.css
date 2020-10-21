@@ -8,7 +8,6 @@ body {
 }
 
 .header {
-    text-align: center;
     background: #548BA1;
     color: #214753;
     font-weight: bold;
@@ -16,8 +15,6 @@ body {
 }
 
 .header h1 {
-    margin: 0;
-    padding: 0px;
     font-style: normal;
 }
 
