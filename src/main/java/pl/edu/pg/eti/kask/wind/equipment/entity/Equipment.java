@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 import pl.edu.pg.eti.kask.wind.user.entity.User;
 
@@ -16,14 +17,19 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@SuperBuilder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
 public class Equipment implements Serializable {
 
+    private Long id;
+
     private User user;
 
     private Rental rental;
+
+    private String name;
 
     private String description;
 

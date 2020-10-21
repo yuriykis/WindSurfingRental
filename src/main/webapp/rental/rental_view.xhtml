@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{rentalView.id}" required="true"/>
+        <f:viewParam name="id" value="#{equipmentList.rentalId}" required="true"/>
+        <f:viewAction action="#{rentalView.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+<!--        <h:outputStylesheet library="rental" name="css/rental_view.css"/>&lt;!&ndash; Automatically relocated to head. &ndash;&gt;-->
+        <h:panelGroup layout="block">
+            <article>
+                <header><h2><h:outputText value="#{rentalView.rental.name}"/></h2></header>
+                <div>
+                    <div>
+                        Number of Employees: <h:outputText value="#{rentalView.rental.numOfEmployees}"/>
+                    </div>
+                    <div>
+                        City: <h:outputText value="#{rentalView.rental.city}"/>
+                    </div>
+                    <div>Establish Date: <h:outputText value="#{rentalView.rental.establishDate}"/></div>
+                </div>
+            </article>
+            <h:dataTable value="#{equipmentList.equipments.equipments}" var="equipment" styleClass="data-table">
+                <h:column>
+                    <f:facet name="header">Nr</f:facet>
+                    <h:outputText value="#{equipment.id}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{equipment.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">View</f:facet>
+                    <h:link styleClass="ui-button ui-control" outcome="/equipment/equipment_view.xhtml" value="view">
+                        <f:param name="id" value="#{equipment.id}"/>
+                    </h:link>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Delete</f:facet>
+                    <h:form>
+                        <h:commandButton styleClass="ui-button ui-control" value="delete" action="#{equipmentList.deleteAction(equipment)}" />
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+            <div>
+                <f:facet name="header">Create new equipment</f:facet>
+                <h:link styleClass="ui-button ui-control" outcome="/equipment/equipment_new.xhtml" value="new">
+                    <f:param name="id" value="#{rentalView.id}"/>
+                </h:link>
+            </div>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>

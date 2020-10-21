@@ -1,0 +1,125 @@
+body {
+    background-color: white;
+    font-family: Georgia serif;
+}
+
+.container {
+    width: 100%;
+}
+
+.header {
+    background: #548BA1;
+    color: #214753;
+    font-weight: bold;
+    width: 100%;
+}
+
+.header h1 {
+    font-style: normal;
+}
+
+.navigation-bar {
+    background-color: #548BA1;
+}
+
+.navigation-bar ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation-bar li {
+    display: inline-block;
+}
+
+.navigation-bar a {
+    display: inline-block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #214753;
+    font-weight: bold;
+}
+
+.navigation-bar a:hover {
+    background-color: #214753;
+    color: #548BA1;
+}
+
+.main-section {
+    background-color: white;
+    height: 705px;
+}
+
+.footer {
+    height: 20px;
+    background-color: #E0EEF7;
+    font-size: small;
+    text-align: center;
+}
+
+.footer p {
+    width: 100%;
+    text-align: center;
+}
+
+.text--justified {
+    text-align: justify;
+}
+
+.text--italic {
+    font-style: italic;
+}
+
+.text--bold {
+    font-weight: bold;
+}
+
+.ui-control {
+    border-color: #214753;
+    background-color: #E0EEF7;
+    border-width: 1px;
+    padding: 1px;
+    font-family: Georgia, serif;
+    font-size: 16px;
+}
+
+.ui-control:focus {
+    outline: none;
+}
+
+.ui-button {
+    height: 24px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.ui-input {
+    height: 20px;
+}
+
+.ui-textarea {
+
+}
+
+.hidden {
+    display: none;
+}
+
+.data-table {
+    border-collapse: collapse;
+}
+
+.data-table td, .data-table th {
+    padding: 6px;
+}
+
+.data-table thead {
+    font-weight: bold;
+    background-color: #548BA2;
+    color: #214753;
+}
+
+.data-table tbody tr:hover {
+    background-color: #96C4D8;
+}

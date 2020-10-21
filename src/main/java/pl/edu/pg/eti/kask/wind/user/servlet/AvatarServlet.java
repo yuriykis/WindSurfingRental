@@ -67,9 +67,22 @@ public class AvatarServlet extends HttpServlet {
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String path = ServletUtility.parseRequestPath(request);
         String servletPath = request.getServletPath();
-        if (Paths.AVATAR_UPDATE.equals(servletPath) || Paths.AVATAR_SET.equals(servletPath)) {
+        if (Paths.AVATAR_UPDATE.equals(servletPath)) {
             if (path.matches(Patterns.AVATAR)) {
                 updateAvatar(request, response);
+                return;
+            }
+        }
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String path = ServletUtility.parseRequestPath(request);
+        String servletPath = request.getServletPath();
+        if (Paths.AVATAR_SET.equals(servletPath)) {
+            if (path.matches(Patterns.AVATAR)) {
+                setAvatar(request, response);
                 return;
             }
         }
@@ -117,6 +130,22 @@ public class AvatarServlet extends HttpServlet {
             Part avatar = request.getPart("avatar");
             if (avatar != null) {
                 service.updateAvatar(id, avatar.getInputStream());
+            }
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        } else {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
+    }
+
+    private void setAvatar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userId = ServletUtility.parseRequestPath(request).replaceAll("/", "");
+        Integer id = Integer.parseInt(userId);
+        Optional<User> user = service.find(id);
+
+        if (user.isPresent()) {
+            Part avatar = request.getPart("avatar");
+            if (avatar != null) {
+                service.setAvatar(id, avatar.getInputStream());
             }
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {

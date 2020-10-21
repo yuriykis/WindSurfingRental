@@ -38,11 +38,15 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("id");
         if (userId != null) {
-            Integer id = Integer.parseInt(userId);
-            Optional<User> user = service.find(id);
-            if (user.isPresent()) {
-                response.getWriter().write(jsonb.toJson(GetUserResponse.entityToDtoMapper().apply(user.get())));
-                return;
+            try {
+                Integer id = Integer.parseInt(userId);
+                Optional<User> user = service.find(id);
+                if (user.isPresent()) {
+                    response.getWriter().write(jsonb.toJson(GetUserResponse.entityToDtoMapper().apply(user.get())));
+                    return;
+                }
+            }catch (NumberFormatException e){
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
         }
         response.getWriter().write("{}");
