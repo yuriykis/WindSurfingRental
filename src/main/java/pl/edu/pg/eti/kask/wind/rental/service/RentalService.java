@@ -36,4 +36,8 @@ public class RentalService {
     public void create(Rental rental) {
         repository.create(rental);
     }
+
+    public void update(Rental rental) {
+        repository.update(rental);
+    }
 }

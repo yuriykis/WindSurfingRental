@@ -91,7 +91,17 @@ public class DataStore {
                 });
     }
 
-
+    public synchronized void updateRental(Rental rental) throws IllegalArgumentException {
+        findRental(rental.getId()).ifPresentOrElse(
+                original -> {
+                    rentals.remove(original);
+                    rentals.add(rental);
+                },
+                () -> {
+                    throw new IllegalArgumentException(
+                            String.format("The rental with id \"%d\" does not exist", rental.getId()));
+                });
+    }
 
     //Equipment
 

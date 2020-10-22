@@ -45,8 +45,6 @@ public class RentalRepository implements Repository<Rental, Long> {
     }
 
     @Override
-    public void update(Rental entity) {
-
-    }
+    public void update(Rental entity) { store.updateRental(entity); }
 
 }
