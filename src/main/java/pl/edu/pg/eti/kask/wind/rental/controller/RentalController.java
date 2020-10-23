@@ -1,9 +1,6 @@
 package pl.edu.pg.eti.kask.wind.rental.controller;
 
-import pl.edu.pg.eti.kask.wind.rental.dto.CreateRentalRequest;
-import pl.edu.pg.eti.kask.wind.rental.dto.GetRentalResponse;
-import pl.edu.pg.eti.kask.wind.rental.dto.GetRentalsResponse;
-import pl.edu.pg.eti.kask.wind.rental.dto.UpdateRentalRequest;
+import pl.edu.pg.eti.kask.wind.rental.dto.*;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 import pl.edu.pg.eti.kask.wind.rental.service.RentalService;
 
@@ -13,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +42,7 @@ public class RentalController {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRentals(@PathParam("id") Long id) {
+    public Response getRental(@PathParam("id") Long id) {
         Optional<Rental> rental = service.find(id);
         if (rental.isPresent()) {
             return Response.ok(GetRentalResponse.entityToDtoMapper()
@@ -84,6 +82,15 @@ public class RentalController {
         rental.setId(newRentalId);
         service.create(rental);
         return Response.status(Response.Status.CREATED).build();
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateRentals(UpdateRentalsRequest request) {
+        List<Rental> rentals = service.findAll();
+        UpdateRentalsRequest.listDtoToListEntityUpdater().apply(rentals, request);
+        service.updateAll(rentals);
+        return Response.status(Response.Status.ACCEPTED).build();
     }
 
     @PUT

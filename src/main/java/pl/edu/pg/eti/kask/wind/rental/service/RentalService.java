@@ -40,4 +40,6 @@ public class RentalService {
     public void update(Rental rental) {
         repository.update(rental);
     }
+
+    public void updateAll(List<Rental> rentals) { repository.updateAll(rentals); }
 }

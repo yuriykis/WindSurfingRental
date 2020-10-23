@@ -47,4 +47,6 @@ public class RentalRepository implements Repository<Rental, Long> {
     @Override
     public void update(Rental entity) { store.updateRental(entity); }
 
+    public void updateAll(List<Rental> rentals) { store.updateAll(rentals); }
+
 }

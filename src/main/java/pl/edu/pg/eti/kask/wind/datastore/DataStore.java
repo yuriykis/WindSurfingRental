@@ -103,6 +103,13 @@ public class DataStore {
                 });
     }
 
+    public synchronized void updateAll(List<Rental> newRentals) throws IllegalArgumentException {
+        rentals.clear();
+        newRentals.forEach(rental -> {
+            rentals.add(rental);
+        });
+    }
+
     //Equipment
 
     public synchronized Optional<Equipment> findEquipment(Long id) {

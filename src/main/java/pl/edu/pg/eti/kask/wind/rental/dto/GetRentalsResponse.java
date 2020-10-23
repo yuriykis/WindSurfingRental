@@ -4,7 +4,6 @@ package pl.edu.pg.eti.kask.wind.rental.dto;
 import lombok.*;
 import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
