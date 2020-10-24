@@ -6,7 +6,6 @@ import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 import pl.edu.pg.eti.kask.wind.rental.model.RentalModel;
 import pl.edu.pg.eti.kask.wind.rental.service.RentalService;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;

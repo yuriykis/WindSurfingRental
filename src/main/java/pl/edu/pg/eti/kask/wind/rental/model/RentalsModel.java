@@ -1,7 +1,6 @@
 package pl.edu.pg.eti.kask.wind.rental.model;
 
 import lombok.*;
-import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 
 import java.io.Serializable;
 import java.time.LocalDate;

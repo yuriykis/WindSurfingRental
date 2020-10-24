@@ -1,6 +1,5 @@
 package pl.edu.pg.eti.kask.wind.rental.view;
 
-import pl.edu.pg.eti.kask.wind.equipment.model.EquipmentsModel;
 import pl.edu.pg.eti.kask.wind.equipment.service.EquipmentService;
 import pl.edu.pg.eti.kask.wind.rental.model.RentalsModel;
 import pl.edu.pg.eti.kask.wind.rental.service.RentalService;

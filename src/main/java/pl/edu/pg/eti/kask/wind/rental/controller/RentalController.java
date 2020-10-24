@@ -1,5 +1,6 @@
 package pl.edu.pg.eti.kask.wind.rental.controller;
 
+import pl.edu.pg.eti.kask.wind.equipment.service.EquipmentService;
 import pl.edu.pg.eti.kask.wind.rental.dto.*;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 import pl.edu.pg.eti.kask.wind.rental.service.RentalService;
@@ -10,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class RentalController {
 
     private RentalService service;
+    private EquipmentService equipmentService;
     private static final int INDEX_DB = 1;
     private static final Long NEW_DB_RECORD_INDEX = 1L;
 
@@ -27,8 +28,10 @@ public class RentalController {
     }
 
     @Inject
-    public void setService(RentalService service){
+    public void setServices(RentalService service, EquipmentService equipmentService){
+
         this.service = service;
+        this.equipmentService = equipmentService;
     }
 
     @GET
@@ -112,6 +115,26 @@ public class RentalController {
             UpdateRentalRequest.dtoToEntityUpdater().apply(rental.get(), request);
             service.update(rental.get());
             return Response.status(Response.Status.ACCEPTED).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @DELETE
+    public Response deleteRentals(){
+        service.deleteAll();
+        equipmentService.deleteAll();
+        return Response.status(Response.Status.OK).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response deleteRental(@PathParam("id") Long id){
+        Optional<Rental> rental = service.find(id);
+        if (rental.isPresent()) {
+            service.delete(id);
+            equipmentService.deleteByRental(id);
+            return Response.status(Response.Status.OK).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

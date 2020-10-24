@@ -3,7 +3,6 @@ package pl.edu.pg.eti.kask.wind.rental.dto;
 import lombok.*;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 

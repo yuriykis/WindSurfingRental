@@ -4,7 +4,6 @@ import lombok.*;
 import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Function;
 

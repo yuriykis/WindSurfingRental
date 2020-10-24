@@ -6,7 +6,6 @@ import pl.edu.pg.eti.kask.wind.user.entity.User;
 import pl.edu.pg.eti.kask.wind.user.service.UserService;
 
 import javax.inject.Inject;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 @WebServlet(urlPatterns = {AvatarServlet.Paths.AVATAR + "/*",

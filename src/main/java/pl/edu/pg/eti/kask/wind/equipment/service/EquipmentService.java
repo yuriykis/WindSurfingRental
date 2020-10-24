@@ -3,7 +3,6 @@ package pl.edu.pg.eti.kask.wind.equipment.service;
 import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 import pl.edu.pg.eti.kask.wind.equipment.repository.EquipmentRepository;
-import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -41,5 +40,9 @@ public class EquipmentService {
 
     public void deleteByRental(Long rentalId) { repository.deleteByRental(rentalId); }
 
+    public void deleteAll() { repository.deleteAll(); }
+
     public void update(Equipment equipment) { repository.update(equipment);}
+
+    public void updateByRental(List<Equipment> equipments, Long rentalId) { repository.updateByRental(equipments, rentalId);}
 }

@@ -1,4 +1,4 @@
-package pl.edu.pg.eti.kask.wind.equipment.model;
+package pl.edu.pg.eti.kask.wind.equipment.dto;
 
 import lombok.*;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
-
 @Getter
 @Setter
 @Builder
@@ -16,7 +15,7 @@ import java.util.function.Function;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
-public class EquipmentsModel {
+public class GetEquipmentsResponse {
 
     @Getter
     @Setter
@@ -26,7 +25,6 @@ public class EquipmentsModel {
     @ToString
     @EqualsAndHashCode
     public static class Equipment {
-
         private Long id;
 
         private User user;
@@ -40,27 +38,25 @@ public class EquipmentsModel {
         private int rentPrice;
 
         private List<String> componentsNames;
-
     }
 
-    @Singular
-    private List<EquipmentsModel.Equipment> equipments;
 
-    public static Function<Collection<pl.edu.pg.eti.kask.wind.equipment.entity.Equipment>, EquipmentsModel> entityToModelMapper() {
+    @Singular
+    private List<Equipment> equipments;
+
+    public static Function<Collection<pl.edu.pg.eti.kask.wind.equipment.entity.Equipment>, GetEquipmentsResponse> entityToDtoMapper() {
         return equipments -> {
-            EquipmentsModel.EquipmentsModelBuilder model = EquipmentsModel.builder();
+            GetEquipmentsResponseBuilder response = GetEquipmentsResponse.builder();
             equipments.stream()
                     .map(equipment -> Equipment.builder()
                             .id(equipment.getId())
-                            .user(equipment.getUser())
-                            .rental(equipment.getRental())
                             .name(equipment.getName())
                             .description(equipment.getDescription())
                             .rentPrice(equipment.getRentPrice())
                             .componentsNames(equipment.getComponentsNames())
                             .build())
-                    .forEach(model::equipment);
-            return model.build();
+                    .forEach(response::equipment);
+            return response.build();
         };
     }
 }

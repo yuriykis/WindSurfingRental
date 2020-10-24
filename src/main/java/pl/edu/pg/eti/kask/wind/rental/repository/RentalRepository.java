@@ -9,7 +9,6 @@ import pl.edu.pg.eti.kask.wind.repository.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Dependent
 public class RentalRepository implements Repository<Rental, Long> {
@@ -43,6 +42,8 @@ public class RentalRepository implements Repository<Rental, Long> {
     public void delete(Rental entity) {
         store.deleteRental(entity.getId());
     }
+
+    public void deleteAll() { store.deleteAllRentals(); }
 
     @Override
     public void update(Rental entity) { store.updateRental(entity); }

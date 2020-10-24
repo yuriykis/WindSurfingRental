@@ -7,12 +7,9 @@ import pl.edu.pg.eti.kask.wind.equipment.model.EquipmentNewModel;
 import pl.edu.pg.eti.kask.wind.equipment.service.EquipmentService;
 import pl.edu.pg.eti.kask.wind.rental.service.RentalService;
 
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
