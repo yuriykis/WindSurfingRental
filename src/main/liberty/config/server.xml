@@ -8,5 +8,6 @@
         <feature>jsf-2.3</feature>
         <feature>jsp-2.3</feature>
         <feature>el-3.0</feature>
+        <feature>jaxrs-2.1</feature>
     </featureManager>
 </server>

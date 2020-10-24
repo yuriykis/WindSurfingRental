@@ -1,9 +1,9 @@
-package pl.edu.pg.eti.kask.wind.rental.model;
+package pl.edu.pg.eti.kask.wind.rental.dto;
+
 
 import lombok.*;
+import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 
-import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -15,8 +15,7 @@ import java.util.function.Function;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
-public class RentalsModel implements Serializable {
-
+public class GetRentalsResponse {
 
     @Getter
     @Setter
@@ -26,7 +25,6 @@ public class RentalsModel implements Serializable {
     @ToString
     @EqualsAndHashCode
     public static class Rental {
-
         private Long id;
 
         private String name;
@@ -35,26 +33,28 @@ public class RentalsModel implements Serializable {
 
         private String city;
 
-        private LocalDate establishDate;
+        private String establishDate;
 
+        private List<Equipment> equipment;
     }
 
     @Singular
     private List<Rental> rentals;
 
-    public static Function<Collection<pl.edu.pg.eti.kask.wind.rental.entity.Rental>, RentalsModel> entityToModelMapper() {
+    public static Function<Collection<pl.edu.pg.eti.kask.wind.rental.entity.Rental>, GetRentalsResponse> entityToDtoMapper() {
         return rentals -> {
-            RentalsModel.RentalsModelBuilder model = RentalsModel.builder();
+            GetRentalsResponseBuilder response = GetRentalsResponse.builder();
             rentals.stream()
-                    .map(rental -> RentalsModel.Rental.builder()
+                    .map(rental -> Rental.builder()
                             .id(rental.getId())
                             .name(rental.getName())
                             .numOfEmployees(rental.getNumOfEmployees())
                             .city(rental.getCity())
-                            .establishDate(rental.getEstablishDate())
+                            .equipment(rental.getEquipment())
+                            .establishDate(rental.getEstablishDate().toString())
                             .build())
-                    .forEach(model::rental);
-            return model.build();
+                    .forEach(response::rental);
+            return response.build();
         };
     }
 

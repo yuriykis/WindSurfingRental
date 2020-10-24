@@ -3,7 +3,6 @@ package pl.edu.pg.eti.kask.wind.datastore;
 import lombok.extern.java.Log;
 import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
-import pl.edu.pg.eti.kask.wind.repository.Repository;
 import pl.edu.pg.eti.kask.wind.serialization.CloningUtility;
 import pl.edu.pg.eti.kask.wind.user.entity.User;
 
@@ -91,7 +90,28 @@ public class DataStore {
                 });
     }
 
+    public synchronized void deleteAllRentals() {
+        rentals.clear();
+    }
 
+    public synchronized void updateRental(Rental rental) throws IllegalArgumentException {
+        findRental(rental.getId()).ifPresentOrElse(
+                original -> {
+                    rentals.remove(original);
+                    rentals.add(rental);
+                },
+                () -> {
+                    throw new IllegalArgumentException(
+                            String.format("The rental with id \"%d\" does not exist", rental.getId()));
+                });
+    }
+
+    public synchronized void updateAll(List<Rental> newRentals) throws IllegalArgumentException {
+        rentals.clear();
+        newRentals.forEach(rental -> {
+            rentals.add(rental);
+        });
+    }
 
     //Equipment
 
@@ -148,5 +168,16 @@ public class DataStore {
                     throw new IllegalArgumentException(
                             String.format("The equipment with id \"%d\" does not exist", equipment.getId()));
                 });
+    }
+
+    public synchronized void updateEquipmentsByRental(List<Equipment> newEquipments, Long rentalId) {
+        if(!equipments.isEmpty()){
+            deleteEquipmentByRental(rentalId);
+            newEquipments.forEach(equipment -> createEquipment(equipment));
+        }
+    }
+
+    public synchronized void deleteAllEquipments() {
+        equipments.clear();
     }
 }

@@ -7,12 +7,9 @@ import pl.edu.pg.eti.kask.wind.equipment.model.EquipmentNewModel;
 import pl.edu.pg.eti.kask.wind.equipment.service.EquipmentService;
 import pl.edu.pg.eti.kask.wind.rental.service.RentalService;
 
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +19,7 @@ import java.util.stream.Collectors;
 @Named
 public class EquipmentNew implements Serializable {
 
+    private static final int INDEX_DB = 1;
     private final EquipmentService service;
     private final RentalService rentalService;
 
@@ -42,10 +40,13 @@ public class EquipmentNew implements Serializable {
         this.rentalService = rentalService;
     }
 
-    public void init() throws IOException {
+    public void init(){
         List<Equipment> equipments = service.findAll();
         if (!equipments.isEmpty()){
-            this.id = Collections.max(equipments.stream().map(Equipment::getId).collect(Collectors.toList())) + 1;
+            this.id = Collections.max(equipments
+                    .stream()
+                    .map(Equipment::getId)
+                    .collect(Collectors.toList())) + INDEX_DB;
         }else {
             this.id = 1L;
         }

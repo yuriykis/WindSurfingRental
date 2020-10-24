@@ -5,7 +5,6 @@ import lombok.Setter;
 import pl.edu.pg.eti.kask.wind.equipment.model.EquipmentsModel;
 import pl.edu.pg.eti.kask.wind.equipment.service.EquipmentService;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;

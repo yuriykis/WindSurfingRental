@@ -2,7 +2,6 @@ package pl.edu.pg.eti.kask.wind.equipment.repository;
 
 import pl.edu.pg.eti.kask.wind.datastore.DataStore;
 import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
-import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 import pl.edu.pg.eti.kask.wind.repository.Repository;
 
 import javax.enterprise.context.Dependent;
@@ -43,9 +42,13 @@ public class EquipmentRepository implements Repository<Equipment, Long> {
     @Override
     public void update(Equipment entity) { store.updateEquipment(entity); }
 
+    public void updateByRental(List<Equipment> entity, Long rentalId) { store.updateEquipmentsByRental(entity, rentalId); }
+
     public List<Equipment> findAllEquipmentsByRental (Long rental) {
         return store.findAllEquipmentsByRental(rental);
     }
 
     public void deleteByRental(Long rentalId) { store.deleteEquipmentByRental(rentalId); }
+
+    public void deleteAll() { store.deleteAllEquipments(); }
 }

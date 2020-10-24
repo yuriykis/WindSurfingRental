@@ -1,7 +1,6 @@
 package pl.edu.pg.eti.kask.wind.user.servlet;
 
 import pl.edu.pg.eti.kask.wind.user.dto.GetAllUsersResponse;
-import pl.edu.pg.eti.kask.wind.user.dto.GetUserResponse;
 import pl.edu.pg.eti.kask.wind.user.entity.User;
 import pl.edu.pg.eti.kask.wind.user.service.UserService;
 
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet(urlPatterns = UsersServlet.Paths.USER)

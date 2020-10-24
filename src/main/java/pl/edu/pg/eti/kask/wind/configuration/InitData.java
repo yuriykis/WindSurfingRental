@@ -2,7 +2,6 @@ package pl.edu.pg.eti.kask.wind.configuration;
 
 import lombok.SneakyThrows;
 import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
-import pl.edu.pg.eti.kask.wind.equipment.model.EquipmentsModel;
 import pl.edu.pg.eti.kask.wind.equipment.service.EquipmentService;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 import pl.edu.pg.eti.kask.wind.rental.service.RentalService;
@@ -13,7 +12,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -188,9 +186,6 @@ public class InitData {
 
     @SneakyThrows
     private byte[] getResourceAsByteArray(String name) {
-        //try (InputStream is = this.getClass().getResourceAsStream(name)) {
-        //    return is.readAllBytes();
-        //}
         Path filePath = Paths.get(AvatarsFolder.AVATARS_FOLDER, name);
         return Files.readAllBytes(filePath);
     }

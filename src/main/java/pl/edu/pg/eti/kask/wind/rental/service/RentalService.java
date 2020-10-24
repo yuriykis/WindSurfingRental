@@ -3,7 +3,6 @@ package pl.edu.pg.eti.kask.wind.rental.service;
 import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 import pl.edu.pg.eti.kask.wind.rental.repository.RentalRepository;
-import pl.edu.pg.eti.kask.wind.user.entity.User;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -29,11 +28,19 @@ public class RentalService {
         return repository.find(id);
     }
 
-    public void delete(Long character) {
-        repository.delete(repository.find(character).orElseThrow());
+    public void delete(Long rental) {
+        repository.delete(repository.find(rental).orElseThrow());
     }
+
+    public void deleteAll() { repository.deleteAll(); }
 
     public void create(Rental rental) {
         repository.create(rental);
     }
+
+    public void update(Rental rental) {
+        repository.update(rental);
+    }
+
+    public void updateAll(List<Rental> rentals) { repository.updateAll(rentals); }
 }
