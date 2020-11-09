@@ -93,6 +93,7 @@ public class RentalController {
         List<Rental> rentals = service.findAll();
         UpdateRentalsRequest.listDtoToListEntityUpdater().apply(rentals, request);
         service.updateAll(rentals);
+        equipmentService.deleteAll();
         return Response.status(Response.Status.ACCEPTED).build();
     }
 
