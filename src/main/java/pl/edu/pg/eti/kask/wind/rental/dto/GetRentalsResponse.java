@@ -35,7 +35,6 @@ public class GetRentalsResponse {
 
         private String establishDate;
 
-        private List<Equipment> equipment;
     }
 
     @Singular
@@ -50,7 +49,6 @@ public class GetRentalsResponse {
                             .name(rental.getName())
                             .numOfEmployees(rental.getNumOfEmployees())
                             .city(rental.getCity())
-                            .equipment(rental.getEquipment())
                             .establishDate(rental.getEstablishDate().toString())
                             .build())
                     .forEach(response::rental);

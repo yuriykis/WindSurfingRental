@@ -26,7 +26,6 @@ public class GetRentalResponse {
 
     private String establishDate;
 
-    private List<Equipment> equipment;
 
     public static Function<Rental, GetRentalResponse> entityToDtoMapper() {
         return rental -> GetRentalResponse.builder()
@@ -35,7 +34,6 @@ public class GetRentalResponse {
                 .city(rental.getCity())
                 .establishDate(rental.getEstablishDate().toString())
                 .numOfEmployees(rental.getNumOfEmployees())
-                .equipment(rental.getEquipment())
                 .build();
     }
 }
