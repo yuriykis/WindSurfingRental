@@ -87,15 +87,15 @@ public class RentalController {
         return Response.status(Response.Status.CREATED).build();
     }
 
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateRentals(UpdateRentalsRequest request) {
-        List<Rental> rentals = service.findAll();
-        UpdateRentalsRequest.listDtoToListEntityUpdater().apply(rentals, request);
-        service.updateAll(rentals);
-        equipmentService.deleteAll();
-        return Response.status(Response.Status.ACCEPTED).build();
-    }
+//    @PUT
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public Response updateRentals(UpdateRentalsRequest request) {
+//        List<Rental> rentals = service.findAll();
+//        UpdateRentalsRequest.listDtoToListEntityUpdater().apply(rentals, request);
+//        service.updateAll(rentals);
+//        equipmentService.deleteAll();
+//        return Response.status(Response.Status.ACCEPTED).build();
+//    }
 
     @PUT
     @Path("{id}")
@@ -121,20 +121,20 @@ public class RentalController {
         }
     }
 
-    @DELETE
-    public Response deleteRentals(){
-        service.deleteAll();
-        equipmentService.deleteAll();
-        return Response.status(Response.Status.OK).build();
-    }
-
+//    @DELETE
+//    public Response deleteRentals(){
+//        service.deleteAll();
+//        equipmentService.deleteAll();
+//        return Response.status(Response.Status.OK).build();
+//    }
+//
     @DELETE
     @Path("{id}")
     public Response deleteRental(@PathParam("id") Long id){
         Optional<Rental> rental = service.find(id);
         if (rental.isPresent()) {
+            equipmentService.deleteByRental(rental.get());
             service.delete(id);
-            equipmentService.deleteByRental(id);
             return Response.status(Response.Status.OK).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();

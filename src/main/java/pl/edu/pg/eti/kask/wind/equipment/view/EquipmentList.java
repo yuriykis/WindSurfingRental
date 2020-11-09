@@ -27,12 +27,12 @@ public class EquipmentList implements Serializable  {
         this.service = service;
     }
 
-    public EquipmentsModel getEquipments() {
-        if (equipments == null) {
-            equipments = EquipmentsModel.entityToModelMapper().apply(service.findAllEquipmentsByRental(this.rentalId));
-        }
-        return equipments;
-    }
+//    public EquipmentsModel getEquipments() {
+//        if (equipments == null) {
+//            equipments = EquipmentsModel.entityToModelMapper().apply(service.findAllEquipmentsByRental(this.rentalId));
+//        }
+//        return equipments;
+//    }
 
     public String deleteAction(EquipmentsModel.Equipment equipment) {
         service.delete(equipment.getId());

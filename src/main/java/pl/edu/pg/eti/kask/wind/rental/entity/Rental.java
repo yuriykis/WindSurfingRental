@@ -10,19 +10,25 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @SuperBuilder
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
+@Entity
+@Table(name = "rentals")
 public class Rental implements Serializable {
 
+    @Id
     private Long id;
 
     private String name;
