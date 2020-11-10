@@ -38,16 +38,21 @@ public class RentalEquipmentController {
         this.equipmentService = equipmentService;
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getEquipments(@PathParam("rentalId") Long rentalId) {
-//        List<Equipment> equipments = equipmentService.findAllEquipmentsByRental(rentalId);
-//        if (equipments.isEmpty()) {
-//            return Response.status(Response.Status.NOT_FOUND).build();
-//        } else {
-//            return Response.ok(GetEquipmentsResponse.entityToDtoMapper().apply(equipments)).build();
-//        }
-//    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEquipments(@PathParam("rentalId") Long rentalId) {
+        Optional<Rental> rental = rentalService.find(rentalId);
+        if (rental.isPresent()) {
+            List<Equipment> equipments = equipmentService.findAllEquipmentsByRental(rental.get());
+            if (equipments.isEmpty()) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            } else {
+                return Response.ok(GetEquipmentsResponse.entityToDtoMapper().apply(equipments)).build();
+            }
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 
     @GET
     @Path("{equipmentId}")
@@ -98,23 +103,6 @@ public class RentalEquipmentController {
         }
     }
 
-//    @PUT
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response updateEquipments(@PathParam("rentalId") Long rentalId, UpdateEquipmentsRequest request){
-//        Optional<Rental> rental = rentalService.find(rentalId);
-//        if(rental.isPresent()){
-//            List<Equipment> equipments = equipmentService.findAllEquipmentsByRental(rentalId);
-//            UpdateEquipmentsRequest.listDtoToListEntityUpdater().apply(equipments, request);
-//            equipments.forEach(equipment ->
-//                    equipment.setRental(rental.get())
-//            );
-//            equipmentService.updateByRental(equipments, rentalId);
-//            return Response.status(Response.Status.ACCEPTED).build();
-//        }else {
-//            return Response.status(Response.Status.NOT_FOUND).build();
-//        }
-//    }
-
     @PUT
     @Path("{equipmentId}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -141,16 +129,16 @@ public class RentalEquipmentController {
         }
     }
 
-//    @DELETE
-//    public Response deleteEquipments(@PathParam("rentalId") Long rentalId){
-//        Optional<Rental> rental = rentalService.find(rentalId);
-//        if(rental.isPresent()){
-//            equipmentService.deleteByRental(rentalId);
-//            return Response.status(Response.Status.OK).build();
-//        }else {
-//            return Response.status(Response.Status.NOT_FOUND).build();
-//        }
-//    }
+    @DELETE
+    public Response deleteEquipments(@PathParam("rentalId") Long rentalId){
+        Optional<Rental> rental = rentalService.find(rentalId);
+        if(rental.isPresent()){
+            equipmentService.deleteByRental(rental.get());
+            return Response.status(Response.Status.OK).build();
+        }else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 
     @DELETE
     @Path("{equipmentId}")

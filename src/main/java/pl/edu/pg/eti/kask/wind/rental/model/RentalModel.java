@@ -28,7 +28,7 @@ public class RentalModel {
 
     private LocalDate establishDate;
 
-    private List<Equipment> equipment;
+    private List<Equipment> equipments;
 
     public static Function<Rental, RentalModel> entityToModelMapper() {
         return rental -> RentalModel.builder()
@@ -37,7 +37,7 @@ public class RentalModel {
                 .numOfEmployees(rental.getNumOfEmployees())
                 .city(rental.getCity())
                 .establishDate(rental.getEstablishDate())
-                .equipment(rental.getEquipment())
+                .equipments(rental.getEquipments())
                 .build();
     }
 }

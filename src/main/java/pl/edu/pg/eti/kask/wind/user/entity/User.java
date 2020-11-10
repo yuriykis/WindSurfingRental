@@ -45,7 +45,7 @@ public class User implements Serializable {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @ToString.Exclude//It's common to exclude lists from toString
+    @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Equipment> equipments;

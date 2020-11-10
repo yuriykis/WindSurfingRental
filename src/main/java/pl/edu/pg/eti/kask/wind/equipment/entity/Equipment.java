@@ -22,7 +22,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString(callSuper = true)
 @Entity
-@Table(name = "equpments")
+@Table(name = "equipments")
 public class Equipment implements Serializable {
 
     @Id

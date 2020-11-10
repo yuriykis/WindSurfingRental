@@ -10,9 +10,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -37,8 +35,13 @@ public class Rental implements Serializable {
 
     private String city;
 
+    @Column(name = "establish_date")
     private LocalDate establishDate;
 
-    private List<Equipment> equipment;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.REMOVE)
+    private List<Equipment> equipments;
 
 }

@@ -22,6 +22,7 @@ public class EquipmentRepository implements Repository<Equipment, Long> {
     public void setRentalService(RentalService rentalService){
         this.rentalService = rentalService;
     }
+
     @PersistenceContext
     public void setEm(EntityManager em) {
         this.em = em;
@@ -58,19 +59,20 @@ public class EquipmentRepository implements Repository<Equipment, Long> {
         em.detach(entity);
     }
 
-    // public void updateByRental(List<Equipment> entity, Long rentalId) { store.updateEquipmentsByRental(entity, rentalId); }
 
-
-    public List<Equipment> findAllByRental(Rental rental) {
+    public List<Equipment> findAllEquipmentsByRental(Rental rental) {
         return em.createQuery("select e from Equipment e where e.rental = :rental", Equipment.class)
                 .setParameter("rental", rental)
                 .getResultList();
     }
 
     public void deleteByRental(Rental rental) {
-            List<Equipment> equipments = findAllByRental(rental);
+            List<Equipment> equipments = findAllEquipmentsByRental(rental);
             equipments.forEach(this::delete);
     }
 
-    // public void deleteAll() { store.deleteAllEquipments(); }
+    public void deleteAll() {
+        em.createQuery("select e from Equipment e", Equipment.class)
+                .getResultList().forEach(this::delete);
+    }
 }

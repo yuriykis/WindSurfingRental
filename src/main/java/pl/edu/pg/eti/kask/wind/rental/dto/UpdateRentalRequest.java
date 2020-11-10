@@ -26,7 +26,7 @@ public class UpdateRentalRequest {
 
     private String establishDate;
 
-    private List<Equipment> equipment;
+    private List<Equipment> equipments;
 
     public static BiFunction<Rental, UpdateRentalRequest, Rental> dtoToEntityUpdater() {
         return (rental, request) -> {
@@ -42,8 +42,8 @@ public class UpdateRentalRequest {
             if(request.getNumOfEmployees() >= 0){
                 rental.setNumOfEmployees(request.getNumOfEmployees());
             }
-            if(request.getEquipment() != null){
-                rental.setEquipment(request.getEquipment());
+            if(request.getEquipments() != null){
+                rental.setEquipments(request.getEquipments());
             }
             return rental;
         };

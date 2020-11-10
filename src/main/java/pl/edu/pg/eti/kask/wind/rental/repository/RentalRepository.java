@@ -47,13 +47,15 @@ public class RentalRepository implements Repository<Rental, Long> {
         em.detach(entity);
     }
 
-    // public void deleteAll() { store.deleteAllRentals(); }
+    public void deleteAll() {
+        em.createQuery("select r from Rental r", Rental.class)
+                .getResultList()
+                .forEach(this::delete);
+    }
 
     @Override
     public void update(Rental entity) {
         em.merge(entity);
     }
-
-    // public void updateAll(List<Rental> rentals) { store.updateAll(rentals); }
 
 }

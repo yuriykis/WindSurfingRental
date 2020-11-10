@@ -1,7 +1,6 @@
 package pl.edu.pg.eti.kask.wind.rental.service;
 
 import lombok.NoArgsConstructor;
-import pl.edu.pg.eti.kask.wind.equipment.service.EquipmentService;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 import pl.edu.pg.eti.kask.wind.rental.repository.RentalRepository;
 
@@ -32,10 +31,12 @@ public class RentalService {
 
     @Transactional
     public void delete(Long rentalId) {
-        repository.delete(repository.find(rentalId).orElseThrow());
+        Rental rental = repository.find(rentalId).orElseThrow();
+        repository.delete(rental);
     }
 
-    // public void deleteAll() { repository.deleteAll(); }
+    @Transactional
+    public void deleteAll() { repository.deleteAll(); }
 
     @Transactional
     public void create(Rental rental) {
@@ -47,5 +48,4 @@ public class RentalService {
         repository.update(rental);
     }
 
-    // public void updateAll(List<Rental> rentals) { repository.updateAll(rentals); }
 }
