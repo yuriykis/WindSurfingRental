@@ -35,7 +35,9 @@ public class EquipmentService {
         return repository.find(id);
     }
 
-     public List<Equipment> findAllEquipmentsByRental(Rental rental) { return repository.findAllEquipmentsByRental(rental); }
+     public List<Equipment> findAllEquipmentsByRental(Rental rental) {
+        return repository.findAllEquipmentsByRental(rental);
+    }
 
     @Transactional
     public void delete(Long equipmentId) {
@@ -44,6 +46,8 @@ public class EquipmentService {
         if (user != null) {
             user.getEquipments().remove(equipment);
         }
+        Rental rental = equipment.getRental();
+        rental.getEquipments().remove(equipment);
         repository.delete(equipment);
     }
 
@@ -56,12 +60,22 @@ public class EquipmentService {
     }
 
     @Transactional
-    public void deleteByRental(Rental rental) { repository.deleteByRental(rental); }
+    public void deleteByRental(Rental rental) {
+        List<Equipment> equipments = repository.findAllEquipmentsByRental(rental);
+        equipments.forEach(equipment -> {
+            User user = equipment.getUser();
+            if (user != null) {
+                user.getEquipments().remove(equipment);
+            }
+            rental.getEquipments().remove(equipment);
+        });
+        repository.deleteByRental(rental);
+    }
 
+    @Transactional
     public void deleteAll() { repository.deleteAll(); }
 
     @Transactional
     public void update(Equipment equipment) { repository.update(equipment);}
 
-    // public void updateByRental(List<Equipment> equipments, Long rentalId) { repository.updateByRental(equipments, rentalId);}
 }

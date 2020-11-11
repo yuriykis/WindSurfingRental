@@ -2,7 +2,6 @@ package pl.edu.pg.eti.kask.wind.rental.dto;
 
 
 import lombok.*;
-import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 
 import java.util.Collection;
 import java.util.List;

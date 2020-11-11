@@ -78,11 +78,11 @@ public class RentalEquipmentController {
     public Response createEquipment(@PathParam("rentalId") Long rentalId, CreateEquipmentRequest request){
         Optional<Rental> rental = rentalService.find(rentalId);
         if(rental.isPresent()){
-            if(request.getName() == null ||
-                    request.getDescription() == null ||
-                    request.getRentPrice() < 0) {
+
+            if(!RentalEquipmentControllerValidator.CreateEquipmentRequestValid(request)){
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
+
             List<Equipment> equipments = equipmentService.findAll();
             long newEquipmentId;
             if (!equipments.isEmpty()){
@@ -107,7 +107,7 @@ public class RentalEquipmentController {
     @Path("{equipmentId}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateEquipment(@PathParam("rentalId") Long rentalId, @PathParam("equipmentId") Long equipmentId, UpdateEquipmentRequest request){
-        if(request.getRentPrice() < 0) {
+        if(!RentalEquipmentControllerValidator.UpdateEquipmentRequestValid(request)){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         Optional<Rental> rental = rentalService.find(rentalId);
@@ -122,7 +122,7 @@ public class RentalEquipmentController {
                 return Response.status(Response.Status.ACCEPTED).build();
 
             } else {
-                return Response.status(Response.Status.BAD_REQUEST).build();
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
             }
         }else {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -153,7 +153,7 @@ public class RentalEquipmentController {
                 return Response.status(Response.Status.OK).build();
 
             } else {
-                return Response.status(Response.Status.BAD_REQUEST).build();
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
             }
 
         }else {

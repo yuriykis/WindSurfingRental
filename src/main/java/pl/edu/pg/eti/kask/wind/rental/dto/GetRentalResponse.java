@@ -1,10 +1,8 @@
 package pl.edu.pg.eti.kask.wind.rental.dto;
 
 import lombok.*;
-import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 
-import java.util.List;
 import java.util.function.Function;
 
 @Getter

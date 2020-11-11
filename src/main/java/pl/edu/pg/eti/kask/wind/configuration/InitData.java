@@ -70,7 +70,7 @@ public class InitData {
                 .userId(3)
                 .login("tomek")
                 .firstName("Tomasz")
-                .lastName("Grabowski")
+                .lastName("Garbowski")
                 .birthDate(LocalDate.of(1996, 6, 4))
                 .email("tomek@wind.example.com")
                 .password(Sha256Utility.hash("useruser"))
