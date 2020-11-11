@@ -10,6 +10,7 @@ import pl.edu.pg.eti.kask.wind.user.service.UserService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
+import javax.enterprise.context.control.RequestContextController;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.nio.file.Files;
@@ -25,13 +26,15 @@ public class InitData {
     private final UserService userService;
     private final RentalService rentalService;
     private final EquipmentService equipmentService;
+    private RequestContextController requestContextController;
 
     @Inject
-    public InitData(UserService userService, RentalService rentalService, EquipmentService equipmentService) {
+    public InitData(UserService userService, RentalService rentalService, EquipmentService equipmentService, RequestContextController requestContextController) {
 
         this.userService = userService;
         this.rentalService = rentalService;
         this.equipmentService = equipmentService;
+        this.requestContextController = requestContextController;
     }
 
     public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
@@ -39,6 +42,8 @@ public class InitData {
     }
 
     private synchronized void init() {
+        requestContextController.activate();
+
         User admin = User.builder()
                 .userId(1)
                 .login("admin")
@@ -65,7 +70,7 @@ public class InitData {
                 .userId(3)
                 .login("tomek")
                 .firstName("Tomasz")
-                .lastName("Grabowski")
+                .lastName("Garbowski")
                 .birthDate(LocalDate.of(1996, 6, 4))
                 .email("tomek@wind.example.com")
                 .password(Sha256Utility.hash("useruser"))
@@ -182,6 +187,8 @@ public class InitData {
         equipmentService.create(beginnerEquipment1);
         equipmentService.create(proEquipment3);
         equipmentService.create(beginnerEquipment2);
+
+        requestContextController.deactivate();
     }
 
     @SneakyThrows

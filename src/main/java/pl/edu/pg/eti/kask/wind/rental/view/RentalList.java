@@ -34,7 +34,6 @@ public class RentalList implements Serializable {
 
     public String deleteAction(RentalsModel.Rental rental) {
         service.delete(rental.getId());
-        equipmentService.deleteByRental(rental.getId());
         return "rental_list?faces-redirect=true";
     }
 }

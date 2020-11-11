@@ -41,11 +41,16 @@ public class RentalEquipmentController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEquipments(@PathParam("rentalId") Long rentalId) {
-        List<Equipment> equipments = equipmentService.findAllEquipmentsByRental(rentalId);
-        if (equipments.isEmpty()) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        Optional<Rental> rental = rentalService.find(rentalId);
+        if (rental.isPresent()) {
+            List<Equipment> equipments = equipmentService.findAllEquipmentsByRental(rental.get());
+            if (equipments.isEmpty()) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            } else {
+                return Response.ok(GetEquipmentsResponse.entityToDtoMapper().apply(equipments)).build();
+            }
         } else {
-            return Response.ok(GetEquipmentsResponse.entityToDtoMapper().apply(equipments)).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 
@@ -73,11 +78,11 @@ public class RentalEquipmentController {
     public Response createEquipment(@PathParam("rentalId") Long rentalId, CreateEquipmentRequest request){
         Optional<Rental> rental = rentalService.find(rentalId);
         if(rental.isPresent()){
-            if(request.getName() == null ||
-                    request.getDescription() == null ||
-                    request.getRentPrice() < 0) {
+
+            if(!RentalEquipmentControllerValidator.CreateEquipmentRequestValid(request)){
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
+
             List<Equipment> equipments = equipmentService.findAll();
             long newEquipmentId;
             if (!equipments.isEmpty()){
@@ -99,27 +104,10 @@ public class RentalEquipmentController {
     }
 
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateEquipments(@PathParam("rentalId") Long rentalId, UpdateEquipmentsRequest request){
-        Optional<Rental> rental = rentalService.find(rentalId);
-        if(rental.isPresent()){
-            List<Equipment> equipments = equipmentService.findAllEquipmentsByRental(rentalId);
-            UpdateEquipmentsRequest.listDtoToListEntityUpdater().apply(equipments, request);
-            equipments.forEach(equipment ->
-                    equipment.setRental(rental.get())
-            );
-            equipmentService.updateByRental(equipments, rentalId);
-            return Response.status(Response.Status.ACCEPTED).build();
-        }else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-    }
-
-    @PUT
     @Path("{equipmentId}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateEquipment(@PathParam("rentalId") Long rentalId, @PathParam("equipmentId") Long equipmentId, UpdateEquipmentRequest request){
-        if(request.getRentPrice() < 0) {
+        if(!RentalEquipmentControllerValidator.UpdateEquipmentRequestValid(request)){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         Optional<Rental> rental = rentalService.find(rentalId);
@@ -134,7 +122,7 @@ public class RentalEquipmentController {
                 return Response.status(Response.Status.ACCEPTED).build();
 
             } else {
-                return Response.status(Response.Status.BAD_REQUEST).build();
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
             }
         }else {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -145,7 +133,7 @@ public class RentalEquipmentController {
     public Response deleteEquipments(@PathParam("rentalId") Long rentalId){
         Optional<Rental> rental = rentalService.find(rentalId);
         if(rental.isPresent()){
-            equipmentService.deleteByRental(rentalId);
+            equipmentService.deleteByRental(rental.get());
             return Response.status(Response.Status.OK).build();
         }else {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -165,7 +153,7 @@ public class RentalEquipmentController {
                 return Response.status(Response.Status.OK).build();
 
             } else {
-                return Response.status(Response.Status.BAD_REQUEST).build();
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
             }
 
         }else {

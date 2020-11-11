@@ -10,6 +10,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,23 +22,37 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
+@Entity
+@Table(name = "users")
 public class User implements Serializable {
 
+    @Id
     private Integer userId;
 
+    @Column(nullable = false, unique = true)
     private String login;
 
     private String firstName;
 
     private String lastName;
 
+    @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @ToString.Exclude
     private String password;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
-    private List<Equipment> equipment;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "user")
+    private List<Equipment> equipments;
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private byte[] avatar;
 }

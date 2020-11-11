@@ -1,53 +1,61 @@
 package pl.edu.pg.eti.kask.wind.rental.repository;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-import pl.edu.pg.eti.kask.wind.datastore.DataStore;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 import pl.edu.pg.eti.kask.wind.repository.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Dependent
+@RequestScoped
 public class RentalRepository implements Repository<Rental, Long> {
 
-    private DataStore store;
+    private EntityManager em;
 
-    /**
-     * @param store data store
-     */
-    @Inject
-    public RentalRepository(DataStore store) {
-        this.store = store;
+    @PersistenceContext
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 
     @Override
     public Optional<Rental> find(Long id) {
-        return store.findRental(id);
+        return Optional.ofNullable(em.find(Rental.class, id));
     }
+
 
     @Override
     public List<Rental> findAll() {
-        return store.findAllRentals();
+        return em.createQuery("select r from Rental r", Rental.class).getResultList();
     }
+
 
     @Override
     public void create(Rental entity) {
-        store.createRental(entity);
+        em.persist(entity);
     }
 
     @Override
     public void delete(Rental entity) {
-        store.deleteRental(entity.getId());
+        em.remove(em.find(Rental.class, entity.getId()));
     }
 
-    public void deleteAll() { store.deleteAllRentals(); }
+    @Override
+    public void detach(Rental entity) {
+        em.detach(entity);
+    }
+
+    public void deleteAll() {
+        em.createQuery("select r from Rental r", Rental.class)
+                .getResultList()
+                .forEach(this::delete);
+    }
 
     @Override
-    public void update(Rental entity) { store.updateRental(entity); }
-
-    public void updateAll(List<Rental> rentals) { store.updateAll(rentals); }
+    public void update(Rental entity) {
+        em.merge(entity);
+    }
 
 }

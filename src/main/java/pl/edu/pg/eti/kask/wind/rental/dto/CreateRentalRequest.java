@@ -27,7 +27,7 @@ public class CreateRentalRequest {
 
     private String establishDate;
 
-    private List<Equipment> equipment;
+    private List<Equipment> equipments;
 
     public static Function<CreateRentalRequest, Rental> dtoToEntityMapper() {
         return request -> Rental.builder()
@@ -36,7 +36,7 @@ public class CreateRentalRequest {
                 .city(request.getCity())
                 .establishDate(LocalDate.parse(request.getEstablishDate()))
                 .numOfEmployees(request.getNumOfEmployees())
-                .equipment(request.getEquipment())
+                .equipments(request.getEquipments())
                 .build();
     }
 }

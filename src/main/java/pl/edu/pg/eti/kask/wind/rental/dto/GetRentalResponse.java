@@ -1,10 +1,8 @@
 package pl.edu.pg.eti.kask.wind.rental.dto;
 
 import lombok.*;
-import pl.edu.pg.eti.kask.wind.equipment.entity.Equipment;
 import pl.edu.pg.eti.kask.wind.rental.entity.Rental;
 
-import java.util.List;
 import java.util.function.Function;
 
 @Getter
@@ -26,7 +24,6 @@ public class GetRentalResponse {
 
     private String establishDate;
 
-    private List<Equipment> equipment;
 
     public static Function<Rental, GetRentalResponse> entityToDtoMapper() {
         return rental -> GetRentalResponse.builder()
@@ -35,7 +32,6 @@ public class GetRentalResponse {
                 .city(rental.getCity())
                 .establishDate(rental.getEstablishDate().toString())
                 .numOfEmployees(rental.getNumOfEmployees())
-                .equipment(rental.getEquipment())
                 .build();
     }
 }
